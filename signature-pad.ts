@@ -32,10 +32,14 @@ export class SignaturePadController {
   }
 
   public resizeCanvas(): void {
+    const data = this.sigInstance?.toDataURL();
     const ratio = Math.max(this.window.devicePixelRatio || 1, 1);
     this.domElem.width = this.domElem.offsetWidth * ratio;
     this.domElem.height = this.domElem.offsetHeight * ratio;
     this.domElem.getContext("2d")?.scale(ratio, ratio);
+    if(data && this.sigInstance) {
+        this.sigInstance.fromDataURL(data);
+    }
   }
 
   public saveAsJpeg(): string | undefined {
